@@ -13,21 +13,21 @@ class InputDecorations{
     return InputDecoration(
       enabledBorder: const UnderlineInputBorder(
         borderSide: const BorderSide(
-          color: Colors.deepPurple
+          color: Colors.black54
         ),
       ),
       focusedBorder: const UnderlineInputBorder(
         borderSide: const BorderSide(
-          color: Colors.deepPurple
+          color: Colors.black54
          )
       ),
       hintText: hintText,
       labelText: labelText,
       labelStyle: const TextStyle(
-        color: Colors.grey
+        color: Colors.black54
       ),
       prefixIcon: prefixIcon != null 
-        ? Icon( prefixIcon, color: Colors.deepPurple)
+        ? Icon( prefixIcon, color: Colors.black54 )
         : null
     );
   }
