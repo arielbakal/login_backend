@@ -1,14 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:productos_app/providers/login_form_provider.dart';
 import 'package:productos_app/ui/input_decorations.dart';
 import 'package:productos_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+class LoginScreen extends StatefulWidget {
 
-class LoginScreen extends StatelessWidget {
-   
   const LoginScreen({Key? key}) : super(key: key);
-  
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
 
                     const SizedBox( height: 10),
-                    Text('Login', style: Theme.of(context).textTheme.headline4),
+                    const Text('Iniciar sesion', style: TextStyle( fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black54)),
                     const SizedBox( height: 30 ),
                     
                     ChangeNotifierProvider(
@@ -38,7 +47,7 @@ class LoginScreen extends StatelessWidget {
               ),
 
               const SizedBox( height: 50,),
-              const Text('Crear una nueva cuenta', style: TextStyle(fontSize:  18, fontWeight: FontWeight.bold)),
+              const Text('Crear una nueva cuenta', style: TextStyle(fontSize:  18, fontWeight: FontWeight.bold, color: Colors.white)),
               const SizedBox( height: 50,),
             ],
           )
@@ -48,8 +57,21 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
 
+
+class _LoginForm extends StatefulWidget {
+
+  static Future<User?> loginUsingEmailPassword(
+    required String email,
+    required String password, 
+    required BuildContext conext
+   ) async {})
+
+  @override
+  State<_LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<_LoginForm> {
   @override
   Widget build(BuildContext context) {
 
@@ -66,6 +88,7 @@ class _LoginForm extends StatelessWidget {
             TextFormField(
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
+              //controller: emailcontroller,
               decoration: InputDecorations.authInputDecoration(
                 hintText: 'usuario@mail.com',
                 labelText: 'Correo Electronico',
@@ -89,10 +112,12 @@ class _LoginForm extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.emailAddress,
+              //controller: passwordcontroller,
               decoration: InputDecorations.authInputDecoration(
                 hintText: '******',
                 labelText: 'Contraseña',
-                prefixIcon: Icons.lock_outline
+                prefixIcon: Icons.lock_outline,
+              
               ),
               onChanged: ( value ) => loginForm.password = value,
               validator: ( value ) {
@@ -110,16 +135,7 @@ class _LoginForm extends StatelessWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               disabledColor:  Colors.grey,
               elevation: 0,
-              color: Colors.deepPurple,
-              child: Container(
-                padding: EdgeInsets.symmetric( horizontal: 80, vertical:  15),
-                child: Text(
-                  loginForm.isLoading
-                    ? 'Espere'
-                    : 'Ingresar',
-                  style: TextStyle( color: Colors.white ),
-                )
-              ),
+              color: Colors.indigo.shade800.withOpacity(0.9),
               onPressed: loginForm.isLoading ? null : () async {
 
                 FocusScope.of(context).unfocus();
@@ -132,6 +148,15 @@ class _LoginForm extends StatelessWidget {
 
                 Navigator.pushReplacementNamed(context, 'home');
               },
+              child: Container(
+                padding: EdgeInsets.symmetric( horizontal: 80, vertical:  15),
+                child: Text(
+                  loginForm.isLoading
+                    ? 'Espere'
+                    : 'Ingresar',
+                  style: TextStyle( color: Colors.white ),
+                )
+              ),
             )
 
           ],
